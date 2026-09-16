@@ -21,6 +21,7 @@
 
       .board {
         height: 100vh;
+         background-image: url(bliss.webp) 
       }
     </style>
     <!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -55,8 +56,10 @@
         box.on("click", handleBoxClick);
 
         // moves the Box to a new position on the screen along the X-Axis
-        function moveBoxTo(newPositionX) {
+        function moveBoxTo(newPositionX, newPositionY) {
           box.css("left", newPositionX);
+          box.css("top", newPositionY);
+
         }
 
         // changes the text displayed on the Box
@@ -73,16 +76,19 @@
         var positionX = 0;
         var points = 0;
         var speed = 10
-        var positionY;
-        var speedY;
+        var positionY = 0;
+        var speedY = 10 ;
+        var boardHeight = jQuery(window).height();
         /**
          * This Function will be called 20 times/second.
          * Each time it is called, it should move the Box to a new location.
          * If the box drifts off the screen, turn it around!
          */
         function update() {
-          moveBoxTo(positionX); // Moves box to right edge
-         positionX = positionX + speed;
+          moveBoxTo(positionX, positionY); // Moves box to right edge
+         
+          
+          positionX = positionX + speed;
           if (positionX > boardWidth) {
             speed = speed * -1;
           }
@@ -90,7 +96,14 @@
           if (positionX < 0) {
             speed = speed * -1;
 } 
-
+              positionX = positionX + speed;
+          if (positionY > boardHeight) {
+            speed = speed * -1;
+          }
+            
+          if (positionY < 0) {
+            speed = speed * -1;
+}  positionY = positionY + speed;
         }
 
         /**
